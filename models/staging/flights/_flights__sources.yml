@@ -1,0 +1,60 @@
+sources:
+  - name: demo_src
+    description: "Данные из БД авиаперелетов"
+    database: dbt_course_1736538 
+    schema: demo_src
+    tables:
+      - name: aircrafts
+        description: '{{ doc("aircrafts_description") }}'
+        columns:
+          - name: aircraft_code
+            description: >
+              Код модели самолета.
+              Состоит из 3-х латинских букв и цифр, например: '773'
+          - name: model
+            description: "Модель самолета"
+          - name: "range"
+            description: "*Дальность полета в милях*
+              Дальность полета самолета в милях. Например: '5243'"
+      - name: airports
+        description: "Аэропорты"
+        columns:
+          - name: airport_code
+            description: "Код аэропорта"
+            tests:
+              - unique
+              - not_null
+          - name: airport_name
+            description: "Название аэропорта"
+          - name: city
+            description: "Город"
+          - name: coordinates
+            description: "Координаты аэропорта"
+          - name: timezone
+            description: "Часовой пояс"
+      - name: seats
+        description: "Места в самолетах"
+        columns:
+          - name: aircraft_code
+            description: "Код самолета"
+          - name: seat_no
+            description: "Номер места"
+          - name: fare_conditions
+            description: "Условия тарифа"
+      - name: bookings
+        description: "Бронирования авиабилетов"
+        columns:
+          - name: book_ref
+            description: "Идентификатор бронирования"
+            tests:
+              - unique
+              - not_null
+          - name: book_date
+            description: "Дата бронирования"
+          - name: total_amount
+            description: "Общая стоимость бронирования"
+        freshness:
+          warn_after: {count: 600000, period: hour}
+          error_after: {count: 10000, period: day}
+          filter: current_timestamp::date - book_date::date < 30000
+        loaded_at_field: book_date::timestamp
