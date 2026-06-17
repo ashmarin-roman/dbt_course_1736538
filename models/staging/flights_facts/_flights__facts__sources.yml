@@ -1,0 +1,64 @@
+sources:
+  - name: demo_src_facts
+    description: "Данные о фактах полетов"
+    database: dbt_course_1736538 
+    schema: demo_src
+    tables:
+      - name: boarding_passes
+        description: "Данные о посадочных талонах"
+        columns:
+          - name: ticket_no
+            description: "Номер билета"
+          - name: flight_id
+            description: "Идентификатор рейса"
+          - name: boarding_no
+            description: "Номер посадочного талона"
+          - name: seat_no
+            description: "Номер места"
+      - name: flights
+        description: "Данные о рейсах"
+        columns:
+          - name: flight_id
+            description: "Идентификатор рейса"
+          - name: flight_no
+            description: "Номер рейса"
+          - name: scheduled_departure
+            description: "Запланированное время отправления"
+          - name: scheduled_arrival
+            description: "Запланированное время прибытия"
+          - name: departure_airport
+            description: "Аэропорт отправления"
+          - name: arrival_airport
+            description: "Аэропорт прибытия"
+          - name: status
+            description: "Статус рейса"
+          - name: aircraft_code
+            description: "Код самолета"
+          - name: actual_departure
+            description: "Фактическое время отправления"
+          - name: actual_arrival
+            description: "Фактическое время прибытия"
+      - name: ticket_flights
+        description: "Данные о связях билетов и рейсов"
+        columns:
+          - name: ticket_no
+            description: "Номер билета"
+          - name: flight_id
+            description: "Идентификатор рейса"
+          - name: fare_conditions
+            description: "Условия тарифа"
+          - name: amount
+            description: "Стоимость билета"
+      - name: tickets
+        description: "Данные о билетах"
+        columns:
+          - name: ticket_no
+            description: "Номер билета"
+          - name: book_ref
+            description: "Номер бронирования"
+          - name: passenger_id
+            description: "Идентификатор пассажира"
+          - name: passenger_name
+            description: "Имя пассажира"
+          - name: contact_data
+            description: "Контактные данные пассажира"
