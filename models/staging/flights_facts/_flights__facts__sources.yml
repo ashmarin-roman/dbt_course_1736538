@@ -38,6 +38,10 @@ sources:
             description: "Фактическое время отправления"
           - name: actual_arrival
             description: "Фактическое время прибытия"
+        freshness:
+          warn_after: {count: 1, period: day}
+          error_after: {count: 2, period: day}
+        loaded_at_field: actual_departure::timestamp
       - name: ticket_flights
         description: "Данные о связях билетов и рейсов"
         columns:
